@@ -83,7 +83,7 @@ This use case showcases the AI’s capability in **e-commerce automation**, maki
 | Backend              | Python, Express (Node.js), Firebase Admin SDK   |
 | Browser Automation   | Selenium                                        |
 | Task Execution       | Microsoft Semantic Kernel                       |
-| Planning             | OpenAI GPT (or local LLM alternatives)          |
+| Planning             | OpenAI GPT / Claude Anthorpic                   |
 | Deployment           | Docker, Kubernetes, Azure Cloud (App Service)   |
 
 ---
