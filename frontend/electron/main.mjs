@@ -1,3 +1,4 @@
+// Integration of Electron for Desktop Application
 // electron/main.mjs
 import { app, BrowserWindow } from "electron";
 import path from "path";
