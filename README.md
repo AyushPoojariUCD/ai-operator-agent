@@ -156,7 +156,7 @@ npm run electron
 ---
 
 ## Additional Resources
-- [Project Plan]([https://your-project-plan-link.com](https://github.com/Soham-2211/AI-Browser-Agent/blob/main/Project%20Plan.pdf))
+- [Project Plan](https://github.com/Soham-2211/AI-Browser-Agent/blob/main/Project%20Plan.pdf)
 - [Documentation](https://your-video-link.com)  
 - [Video Demonstration](https://your-video-link.com)  
 
