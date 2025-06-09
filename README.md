@@ -139,6 +139,13 @@ cd frontend
 npm install
 ```
 
+**Install Dependencies**
+```
+npm install electron
+```
+
+- NOTE: `Configure firebase/config`
+
 **Steps to run Frontend : `AI Browser Agent`**
 ```
 npm run electron-dev
