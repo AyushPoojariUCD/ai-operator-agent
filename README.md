@@ -78,10 +78,10 @@ This use case showcases the AI’s capability in **e-commerce automation**, maki
 ## 👩‍💻 Tech Stack
 
 | Component            | Technology                                      |
-|----------------------|--------------------------------------------------|
+|----------------------|-------------------------------------------------|
 | UI                   | React, Electron, Tailwind CSS                   |
-| Backend              | Python, Express (Node.js), Firebase Admin SDK           |
-| Browser Automation   | Puppeteer, Selenium                             |
+| Backend              | Python, Express (Node.js), Firebase Admin SDK   |
+| Browser Automation   | Selenium                                        |
 | Task Execution       | Microsoft Semantic Kernel                       |
 | Planning             | OpenAI GPT (or local LLM alternatives)          |
 | Deployment           | Docker, Kubernetes, Azure Cloud (App Service)   |
