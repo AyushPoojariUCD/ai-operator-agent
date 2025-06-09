@@ -1,6 +1,6 @@
 # AI Browser Agent
 
-A privacy-preserving AI assistant that automates tasks like ticket booking, form filling, and web scraping directly in your local browser using LLMs, Puppeteer/Selenium, and Electron.
+A privacy-preserving AI assistant that automates tasks like ticket booking, form filling, and web scraping directly in your local browser using LLMs, Selenium and Electron.
 
 ## Overview
 
@@ -17,7 +17,7 @@ By integrating large language models (LLMs) with browser automation frameworks l
 - Browser content analysis using Puppeteer or Selenium
 - Workflow planning using large language models (LLMs)
 - Semantic Kernel integration for structured and secure task execution
-- Built with React, Electron, Express, Firebase, and Puppeteer/Selenium
+- Built with React, Electron, Express, Firebase, and Selenium
 
 ---
 
