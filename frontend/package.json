@@ -8,7 +8,11 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "electron-dev": "vite",
+    "electron": "electron electron/main.mjs",
+    "electron-build": "vite build",
+    "start": "electron electron/main.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.1.2",
