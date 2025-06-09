@@ -23,17 +23,27 @@ By integrating large language models (LLMs) with browser automation frameworks l
 
 ## Example Use Case
 
-**User Command:**  
-"Add two healthy snacks for my diet to my Tesco basket for next weekend."
+## ✈️ Flight Booking Use Case
 
-**Agent Actions:**
+This visual demonstrates how an AI agent processes a user's request to book a flight from **London to New York on August 30, 2025**.
 
-1. Opens Tesco in the browser.
-2. Searches for healthy snacks.
-3. Selects suitable items based on dietary criteria.
-4. Adds items to the cart.
-5. Proceeds to checkout and schedules delivery.
-6. Confirms task completion with the user.
+The task flows through a **Plan → Act → Observe** loop:
+
+1. **Plan:** The agent understands the user's intent and extracts relevant parameters such as:
+   - Departure location: London  
+   - Destination: New York  
+   - Travel date: August 30, 2025
+
+2. **Act:** The agent inputs these parameters into the booking system and initiates a search for available flights.
+
+3. **Observe:** The system monitors the results and selects or displays a suitable flight.
+
+A mock flight result is shown to illustrate the system’s response and how the loop completes successfully.
+
+This use case highlights the AI agent’s ability to make autonomous decisions in real-world travel scenarios, showcasing end-to-end automation and intelligent reasoning.
+
+![Flight Booking Use Case](https://github.com/AyushPoojariUCD/ai-browser-agent/raw/main/Use%20Case%20-%201.jpg)
+
 
 
 ---
