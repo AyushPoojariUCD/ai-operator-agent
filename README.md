@@ -39,7 +39,7 @@ By integrating large language models (LLMs) with browser automation frameworks l
 ---
 ## Project Workflow
 
-![Project Workflow](https://github.com/AyushPoojariUCD/ai-browser-agent/blob/main/Project%20Workflow.png)
+![Project Workflow](https://github.com/AyushPoojariUCD/ai-operator-agent/blob/main/Project%20Workflow.png)
 
 
 ---
