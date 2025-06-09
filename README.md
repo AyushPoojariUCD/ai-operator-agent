@@ -129,6 +129,23 @@ git clone https://github.com/yourname/ai-browser-agent.git
 cd ai-browser-agent
 ```
 
+**Navigate to the Frontend Directory**
+
+```bash
+cd frontend
+```
+**Install Dependencies**
+```
+npm install
+```
+
+**Steps to run Frontend : `AI Browser Agent`**
+```
+npm run electron-dev
+
+npm run electron
+```
+
 ---
 
 ## Additional Resources
