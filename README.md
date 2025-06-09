@@ -42,7 +42,7 @@ A mock flight result is shown to illustrate the system’s response and how the 
 
 This use case highlights the AI agent’s ability to make autonomous decisions in real-world travel scenarios, showcasing end-to-end automation and intelligent reasoning.
 
-![Flight Booking Use Case](https://github.com/AyushPoojariUCD/ai-browser-agent/raw/main/Use%20Case%20-%201.jpg)
+![Flight Booking Use Case](https://github.com/AyushPoojariUCD/ai-browser-agent/blob/main/Use%20Case%20-%202.jpg)
 
 
 ## 🛒 Grocery Shopping Use Case
@@ -63,7 +63,7 @@ The visual demonstrates how the AI assistant interacts autonomously with mobile 
 
 This use case showcases the AI’s capability in **e-commerce automation**, making routine tasks like grocery shopping seamless and intelligent.
 
-![Grocery Shopping Use Case](https://github.com/AyushPoojariUCD/ai-browser-agent/raw/main/Use%20Case%20-%202.jpg)
+![Grocery Shopping Use Case](https://github.com/AyushPoojariUCD/ai-browser-agent/blob/main/Use%20Case%20-%201.jpg)
 
 
 ---
