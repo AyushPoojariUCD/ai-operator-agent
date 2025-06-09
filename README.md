@@ -45,8 +45,29 @@ This use case highlights the AI agent’s ability to make autonomous decisions i
 ![Flight Booking Use Case](https://github.com/AyushPoojariUCD/ai-browser-agent/raw/main/Use%20Case%20-%201.jpg)
 
 
+## 🛒 Grocery Shopping Use Case
+
+This image illustrates an AI assistant executing a command to add **tomatoes** to a Tesco grocery cart.
+
+Following the **Observe → Plan → Act** cycle:
+
+1. **Observe:** The assistant analyzes the interface and detects relevant product listings.
+2. **Plan:** It understands the intent to add tomatoes and identifies the correct action.
+3. **Act:** The agent clicks the “Add to cart” button associated with the correct item.
+
+The visual demonstrates how the AI assistant interacts autonomously with mobile web interfaces, simulating human-like task execution by:
+
+- Observing available items  
+- Planning next steps  
+- Acting based on context
+
+This use case showcases the AI’s capability in **e-commerce automation**, making routine tasks like grocery shopping seamless and intelligent.
+
+![Grocery Shopping Use Case](https://github.com/AyushPoojariUCD/ai-browser-agent/raw/main/Use%20Case%20-%202.jpg)
+
 
 ---
+
 ## Project Workflow
 
 ![Project Workflow](https://github.com/AyushPoojariUCD/ai-operator-agent/blob/main/Project%20Workflow.png)
