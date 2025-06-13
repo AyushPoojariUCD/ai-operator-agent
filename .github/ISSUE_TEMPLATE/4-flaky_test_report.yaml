@@ -1,0 +1,63 @@
+name: 🧪 Report a Flaky Test
+description: Report a flaky or unstable test in the backend or full stack CI
+title: "[Flaky Test] <test name or short description>"
+labels: [flaky-test, backend]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ Thanks for helping us improve test stability!
+
+        A flaky test is one that sometimes fails but passes on rerun without any code change.
+        Please share as much detail as possible below to help us diagnose the issue.
+
+  - type: input
+    attributes:
+      label: Test Name or File
+      description: The specific test or test file that is flaky
+      placeholder: e.g., `authController.test.js`, `GET /api/v1/messages`
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: Environment / Platform
+      description: What environment did the flaky test occur in?
+      multiple: true
+      options:
+        - Node.js (local)
+        - GitHub Actions - Ubuntu
+        - GitHub Actions - macOS
+        - GitHub Actions - Windows
+        - Electron Runtime
+        - Vite Dev Server
+        - Docker
+        - Other
+
+  - type: textarea
+    attributes:
+      label: Test Output / Console Log
+      description: Paste the relevant error logs or stack trace here
+      render: console
+      placeholder: |
+        Example:
+        ● POST /login › should return 200 for valid credentials
+
+          Error: Expected 200 but received 500
+
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Affected CI Builds or Commits
+      description: Include links to GitHub Actions or any failed build URLs
+      value: "- "
+
+  - type: textarea
+    attributes:
+      label: Additional Context or Notes
+      description: |
+        Optional: Share any pattern you've noticed, how often it fails, or reproduction steps.

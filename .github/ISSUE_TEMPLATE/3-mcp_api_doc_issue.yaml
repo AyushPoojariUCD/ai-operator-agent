@@ -1,0 +1,38 @@
+name: 📘 API Documentation Issue (MCP Server)
+description: Report issues with the MCP Server API reference documentation
+title: "[Docs] <short description of the problem>"
+labels: [documentation, mcp]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        👋 Thanks for helping us improve the MCP Server API documentation!
+
+        Please provide as much detail as possible to help us locate and fix the issue.
+
+  - type: input
+    attributes:
+      label: Affected Endpoint or URL
+      description: The specific API route or page with the issue
+      placeholder: e.g., `/api/v1/agents`, `/docs/mcp/authentication`
+
+  - type: textarea
+    attributes:
+      label: Description of the Problem
+      description: What is incorrect, unclear, outdated, or missing?
+      placeholder: Describe the documentation problem in detail
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Suggested Fix (Optional)
+      description: If you know how it should be fixed, let us know!
+      placeholder: e.g., "Update the response schema to include the `agent_id` field."
+
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Add any extra context, links, screenshots, or references

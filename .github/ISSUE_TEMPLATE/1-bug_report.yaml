@@ -1,0 +1,68 @@
+name: 🐛 Bug Report
+description: Report a bug to help us improve the Electron + React Chat App
+title: "[Bug]: <short description>"
+labels: [bug]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to help us improve the project!
+        Please fill out this form as completely as possible.
+
+  - type: input
+    attributes:
+      label: App Version
+      description: Output of `package.json` version or app build
+      placeholder: e.g., v0.0.3, commit d4a9c8f
+
+  - type: input
+    attributes:
+      label: Environment
+      description: OS and Electron version
+      placeholder: e.g., Windows 11, Electron 36.4.0
+
+  - type: input
+    attributes:
+      label: Browser or UI Engine
+      description: If the issue is in the frontend, include browser or Vite version
+      placeholder: e.g., Chrome 124, Vite 6.3.5
+
+  - type: textarea
+    attributes:
+      label: Steps to Reproduce
+      description: Clear steps to replicate the issue
+      placeholder: |
+        1. Open the app
+        2. Click "Send"
+        3. See crash or error
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: e.g., The chat should send the message and show a confirmation
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: e.g., The app crashed and threw a CORS error
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Screenshots or Logs
+      description: Paste any screenshots or console/electron logs
+      placeholder: Drag & drop an image or paste logs here
+
+  - type: textarea
+    attributes:
+      label: Additional Information
+      description: Anything else we should know?
