@@ -1,0 +1,25 @@
+# Set default code owners for the entire repository
+
+-       @CodingThumbs
+
+# Frontend (React + Electron) code
+
+/frontend/ @CodingThumbs
+
+# Backend (MCP server, FastAPI, automation agents)
+
+/backend/ @CodingThumbs
+
+# GitHub Workflows
+
+.github/workflows/ @CodingThumbs
+
+# Issue templates and config
+
+.github/ISSUE_TEMPLATE/ @CodingThumbs
+.github/config.yml @CodingThumbs
+
+# Documentation (README, diagrams, etc.)
+
+/docs/ @CodingThumbs
+README.md @CodingThumbs
