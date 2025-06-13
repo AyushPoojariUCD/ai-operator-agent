@@ -1,0 +1,41 @@
+name: 🚬 Smoke Test (Electron + Vite)
+
+on:
+  push:
+    paths:
+      - "frontend/**"
+  pull_request:
+    paths:
+      - "frontend/**"
+  workflow_dispatch:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🔨 Build Vite app
+        run: npm run build
+
+      - name: 🚀 Run Electron app (Smoke Test)
+        run: |
+          npm install -g wait-on
+          nohup npm run dev:electron &  # Starts Vite and Electron in background
+          sleep 10                      # Give it a few seconds to start
+          echo "Smoke test done. Killing Electron process..."
+          pkill electron || true        # Kill the Electron process
