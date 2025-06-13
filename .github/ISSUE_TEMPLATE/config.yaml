@@ -1,0 +1,18 @@
+blank_issues_enabled: true
+
+contact_links:
+  - name: 🤔 Need help using the AI Browser Agent?
+    url: https://github.com/AyushPoojariUCD/ai-browser-agent/discussions
+    about: For general questions, setup help, or feedback, please post in Discussions.
+
+  - name: 🐞 Bug Report – Backend (MCP Server API)
+    url: https://github.com/AyushPoojariUCD/ai-browser-agent/issues/new?template=bug_report.yaml
+    about: Report backend-related issues in the MCP server or API layer.
+
+  - name: 🧠 Feature Request – Electron/React or Automation Features
+    url: https://github.com/AyushPoojariUCD/ai-browser-agent/issues/new?template=feature_request.yaml
+    about: Request new agent capabilities, browser automations, or UI improvements.
+
+  - name: 📄 Documentation or Project Setup Feedback
+    url: https://github.com/AyushPoojariUCD/ai-browser-agent/issues/new?template=documentation_feedback.yaml
+    about: Suggest updates to the README, installation steps, or architectural clarity.
