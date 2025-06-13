@@ -42,7 +42,7 @@ A mock flight result is shown to illustrate the system’s response and how the 
 
 This use case highlights the AI agent’s ability to make autonomous decisions in real-world travel scenarios, showcasing end-to-end automation and intelligent reasoning.
 
-![Flight Booking Use Case](https://github.com/AyushPoojariUCD/ai-browser-agent/blob/main/Use%20Case%20-%202.jpg)
+![Flight Booking Use Case](https://github.com/AyushPoojariUCD/ai-browser-agent/blob/main/docs/use-case-flight-booking.jpg)
 
 
 ## 🛒 Grocery Shopping Use Case
@@ -63,14 +63,14 @@ The visual demonstrates how the AI assistant interacts autonomously with mobile 
 
 This use case showcases the AI’s capability in **e-commerce automation**, making routine tasks like grocery shopping seamless and intelligent.
 
-![Grocery Shopping Use Case](https://github.com/AyushPoojariUCD/ai-browser-agent/blob/main/Use%20Case%20-%201.jpg)
+![Grocery Shopping Use Case](https://github.com/AyushPoojariUCD/ai-browser-agent/blob/main/docs/use-case-grocery-ordering.jpg)
 
 
 ---
 
 ## Project Workflow
 
-![Project Workflow](https://github.com/AyushPoojariUCD/ai-operator-agent/blob/main/Project%20Workflow.png)
+![Project Workflow](https://github.com/AyushPoojariUCD/ai-browser-agent/blob/main/docs/project-workflow.png)
 
 
 ---
@@ -156,6 +156,7 @@ npm run electron
 ---
 
 ## Additional Resources
+- [LLM Integration Decision](https://github.com/AyushPoojariUCD/ai-browser-agent/blob/main/docs/llm-integration-decision.pdf)
 - [Project Plan](https://github.com/Soham-2211/AI-Browser-Agent/blob/main/Project%20Plan.pdf)
 - [Documentation](https://your-video-link.com)  
 - [Video Demonstration](https://your-video-link.com)  
