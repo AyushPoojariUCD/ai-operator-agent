@@ -12,7 +12,8 @@
     "electron-dev": "vite",
     "electron": "electron electron/main.mjs",
     "electron-build": "vite build",
-    "start": "electron electron/main.mjs"
+    "start": "electron electron/main.mjs",
+    "dev:electron": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron electron/main.mjs\""
   },
   "dependencies": {
     "@react-three/drei": "^10.1.2",
