@@ -1,4 +1,4 @@
-name: 🌐 Frontend CI (Vite + Electron)
+name: Frontend CI (Vite + Electron)
 
 on:
   push:
