@@ -6,6 +6,7 @@ import AuthContainer from "../components/Auth/AuthContainer";
 import LogoBlock from "../components/Auth/LogoBlock";
 import SignupForm from "../components/Auth/SignupForm";
 import SocialSignup from "../components/Auth/SocialSignup";
+import BackButton from "../components/BackButton";
 
 const Signup = () => (
   <>
@@ -24,6 +25,7 @@ const Signup = () => (
             Sign In
           </Link>
         </p>
+        <BackButton />
       </div>
     </AuthContainer>
   </>

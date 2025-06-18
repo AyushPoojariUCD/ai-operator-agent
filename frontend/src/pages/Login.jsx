@@ -5,6 +5,7 @@ import AuthContainer from "../components/Auth/AuthContainer";
 import LogoBlock from "../components/Auth/LogoBlock";
 import LoginForm from "../components/Auth/LoginForm";
 import SocialLogin from "../components/Auth/SocialLogin";
+import BackButton from "../components/BackButton";
 import { Link } from "react-router-dom";
 
 const Login = () => (
@@ -22,6 +23,7 @@ const Login = () => (
             Sign Up
           </Link>
         </p>
+        <BackButton />
       </div>
     </AuthContainer>
   </>

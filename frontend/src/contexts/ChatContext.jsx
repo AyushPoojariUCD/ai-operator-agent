@@ -1,5 +1,3 @@
-// src/contexts/ChatContext.jsx
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
@@ -19,24 +17,24 @@ export const ChatProvider = ({ children }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [mcpEnabled, setMcpEnabled] = useState(false);
+  const [modelType, setModelType] = useState("gpt-4o");
+  const [temperature, setTemperature] = useState(0.7);
+  const [toolServers] = useState([]);
 
-  // Update localStorage when conversations change
+  const toggleMCP = () => setMcpEnabled((prev) => !prev);
+
   useEffect(() => {
     localStorage.setItem("conversations", JSON.stringify(conversations));
   }, [conversations]);
 
-  const toggleMCP = () => setMcpEnabled((prev) => !prev);
-
   const addMessage = (type, content) => {
     if (!conversations[currentIndex]) return;
-
     const newMessage = {
       type,
       content,
       timestamp: new Date().toISOString(),
       userId: "guest",
     };
-
     setConversations((prev) => {
       const updated = [...prev];
       updated[currentIndex] = {
@@ -55,33 +53,39 @@ export const ChatProvider = ({ children }) => {
     );
 
   const sendMessage = async (userInput) => {
-    if (conversations.length === 0 || !conversations[currentIndex]) {
-      const defaultChat = { title: "Chat 1", messages: [] };
-      setConversations([defaultChat]);
+    if (!conversations.length || !conversations[currentIndex]) {
+      setConversations([{ title: "Chat 1", messages: [] }]);
       setCurrentIndex(0);
-      console.warn("⚠️ No chat session available. Created a new one.");
       return;
     }
 
-    const currentMessages =
-      conversations?.[currentIndex]?.messages ??
-      conversations[0]?.messages ??
-      [];
-
+    const currentMessages = conversations[currentIndex]?.messages || [];
     addMessage("user", userInput);
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:8000/api/chat", {
+      const payload = {
         messages: [
           ...getOpenAIMessages(currentMessages),
           { role: "user", content: userInput },
         ],
-        mcpEnabled,
-      });
+        modelType,
+        temperature,
+        tools: [],
+      };
 
-      const aiResponse = response.data.reply;
-      addMessage("ai", aiResponse);
+      const endpoint = mcpEnabled
+        ? "http://localhost:8000/api/mcp"
+        : "http://localhost:8000/api/chat";
+
+      const response = await axios.post(endpoint, payload);
+      addMessage("ai", response.data.reply);
+
+      if (response.data.tools_output) {
+        Object.entries(response.data.tools_output).forEach(([name, output]) => {
+          addMessage("ai", `🔧 ${name}:\n${output}`);
+        });
+      }
     } catch (err) {
       console.error("API error:", err);
       addMessage("ai", "❌ Failed to get response.");
@@ -106,12 +110,9 @@ export const ChatProvider = ({ children }) => {
   const deleteChat = (index) => {
     const updated = conversations.filter((_, i) => i !== index);
     setConversations(updated);
-
-    if (index === currentIndex) {
-      setCurrentIndex(0);
-    } else if (index < currentIndex) {
-      setCurrentIndex((prev) => prev - 1);
-    }
+    setCurrentIndex(
+      index === currentIndex ? 0 : currentIndex - (index < currentIndex ? 1 : 0)
+    );
   };
 
   const switchChat = (index) => {
@@ -126,6 +127,7 @@ export const ChatProvider = ({ children }) => {
         conversations,
         currentMessages: conversations[currentIndex]?.messages || [],
         sendMessage,
+        sendMcpMessage: sendMessage,
         newChat,
         switchChat,
         currentIndex,
@@ -134,6 +136,11 @@ export const ChatProvider = ({ children }) => {
         loading,
         mcpEnabled,
         toggleMCP,
+        modelType,
+        setModelType,
+        temperature,
+        setTemperature,
+        toolServers,
       }}
     >
       {children}
