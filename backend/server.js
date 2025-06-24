@@ -12,6 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/api/chat", async (req, res) => {
+<<<<<<< HEAD
   const { messages, mcpEnabled, html } = req.body;
   const userMessage = messages[messages.length - 1]?.content || "";
 
@@ -45,11 +46,33 @@ app.post("/api/chat", async (req, res) => {
           : { role: "assistant", content: msg.content }
       );
       console.log("   Messages to OpenAI:", openaiMessages);
+=======
+  const { messages, mcpEnabled } = req.body;
+  const userMessage = messages[messages.length - 1]?.content ?? "";
+
+  try {
+    let reply;
+
+    if (mcpEnabled) {
+      const fakeHTML = "<html><body><button id='book'>Book Now</button></body></html>";
+      const actions = await runMCP(userMessage, fakeHTML);
+      reply = `🧠 MCP Action Plan: ${JSON.stringify(actions, null, 2)}`;
+    } else {
+      const openaiMessages = messages.map((msg) =>
+        msg.role === "user"
+          ? { role: "user", content: msg.content }
+          : { role: "assistant", content: msg.content }
+      );
+>>>>>>> 9f0041f767e450b7658c3a27d6fe306122afaa27
 
       const response = await axios.post(
         "https://api.openai.com/v1/chat/completions",
         {
+<<<<<<< HEAD
           model: "gpt-4",           // or "gpt-3.5-turbo"
+=======
+          model: "gpt-4",
+>>>>>>> 9f0041f767e450b7658c3a27d6fe306122afaa27
           messages: openaiMessages,
           temperature: 0.7,
         },
@@ -61,6 +84,7 @@ app.post("/api/chat", async (req, res) => {
         }
       );
 
+<<<<<<< HEAD
       const reply = response.data.choices[0].message.content;
       console.log("   OpenAI reply:", reply);
       return res.json({ reply });
@@ -71,6 +95,33 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
+=======
+      reply = response.data.choices[0].message.content;
+    }
+
+    res.json({ reply });
+  } catch (err) {
+    console.error("❌ Backend error:", err);
+    res.status(500).json({ reply: "❌ Internal server error." });
+  }
+});
+
+// ✅ Added MCP endpoint
+app.post("/api/mcp", async (req, res) => {
+  const { messages } = req.body;
+  const userMessage = messages[messages.length - 1]?.content ?? "";
+
+  try {
+    const fakeHTML = "<html><body><button id='book'>Book Now</button></body></html>";
+    const actions = await runMCP(userMessage, fakeHTML);
+    const reply = `🧠 MCP Action Plan: ${JSON.stringify(actions, null, 2)}`;
+    res.json({ reply });
+  } catch (err) {
+    console.error("❌ MCP error:", err);
+    res.status(500).json({ reply: "❌ MCP server error." });
+  }
+});
+>>>>>>> 9f0041f767e450b7658c3a27d6fe306122afaa27
 
 app.listen(PORT, () => {
   console.log(`🟢 Server running on http://localhost:${PORT}`);
