@@ -1,9 +1,22 @@
+// src/contexts/ChatContext.jsx
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
 const ChatContext = createContext();
 
+// 1️⃣ Simple site-URL extractor
+const deriveUrl = (command) => {
+  const cmd = command.toLowerCase();
+  if (cmd.includes("tesco")) return "https://www.tesco.ie/groceries/en-IE";
+  if (cmd.includes("amazon")) return "https://www.amazon.com/";
+  if (cmd.includes("flipkart")) return "https://www.flipkart.com/";
+  console.warn("⚠️ deriveUrl: no mapping for command:", command);
+  return "";
+};
+
 export const ChatProvider = ({ children }) => {
+  // Conversations state
   const [conversations, setConversations] = useState(() => {
     try {
       const saved = localStorage.getItem("conversations");
@@ -13,19 +26,16 @@ export const ChatProvider = ({ children }) => {
       return [{ title: "Chat 1", messages: [] }];
     }
   });
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [mcpEnabled, setMcpEnabled] = useState(false);
-  const [modelType, setModelType] = useState("gpt-4o");
-  const [temperature, setTemperature] = useState(0.7);
-  const [toolServers] = useState([]);
 
-  const toggleMCP = () => setMcpEnabled((prev) => !prev);
-
+  // Persist to localStorage
   useEffect(() => {
     localStorage.setItem("conversations", JSON.stringify(conversations));
   }, [conversations]);
+
+  const toggleMCP = () => setMcpEnabled((prev) => !prev);
 
   const addMessage = (type, content) => {
     if (!conversations[currentIndex]) return;
@@ -45,49 +55,79 @@ export const ChatProvider = ({ children }) => {
     });
   };
 
-  const getOpenAIMessages = (messages) =>
-    messages.map((msg) =>
+  const getOpenAIMessages = (msgs) =>
+    msgs.map((msg) =>
       msg.type === "user"
         ? { role: "user", content: msg.content }
         : { role: "assistant", content: msg.content }
     );
 
   const sendMessage = async (userInput) => {
-    if (!conversations.length || !conversations[currentIndex]) {
+    // Ensure there is at least one conversation
+    if (!conversations[currentIndex]) {
       setConversations([{ title: "Chat 1", messages: [] }]);
       setCurrentIndex(0);
-      return;
     }
 
-    const currentMessages = conversations[currentIndex]?.messages || [];
+    const currentMessages = conversations[currentIndex].messages;
     addMessage("user", userInput);
     setLoading(true);
 
+    let pageHTML = "";
+
+    // 2️⃣ MCP navigation & scraping (if enabled)
+    if (mcpEnabled && window.electronAPI?.openAgentURL) {
+      console.log("[MCP] deriveUrl:", userInput);
+      const targetUrl = deriveUrl(userInput);
+      console.log("[MCP] targetUrl:", targetUrl);
+
+      if (targetUrl) {
+        try {
+          console.log("[MCP] opening URL");
+          const result = await window.electronAPI.openAgentURL(targetUrl);
+          console.log("[MCP] openAgentURL result:", result);
+
+          if (result.status === "success") {
+            // optional delay for page load
+            await new Promise((r) => setTimeout(r, 1000));
+            console.log("[MCP] scraping HTML");
+            pageHTML = await window.electronAPI.getAgentHTML();
+            console.log("[MCP] HTML length:", pageHTML.length);
+          } else {
+            console.warn("[MCP] openAgentURL failed:", result.message);
+          }
+        } catch (err) {
+          console.error("[MCP] error during navigation/scrape:", err);
+        }
+      } else {
+        console.warn("[MCP] no URL derived; skipping navigation");
+      }
+    }
+
+    // 3️⃣ Always send to backend
     try {
-      const payload = {
+      const { data } = await axios.post("http://localhost:8000/api/chat", {
         messages: [
           ...getOpenAIMessages(currentMessages),
           { role: "user", content: userInput },
         ],
-        modelType,
-        temperature,
-        tools: [],
-      };
+        mcpEnabled,
+        html: pageHTML,
+      });
 
-      const endpoint = mcpEnabled
-        ? "http://localhost:8000/api/mcp"
-        : "http://localhost:8000/api/chat";
+      // 4️⃣ Add AI reply
+      addMessage("ai", data.reply);
 
-      const response = await axios.post(endpoint, payload);
-      addMessage("ai", response.data.reply);
-
-      if (response.data.tools_output) {
-        Object.entries(response.data.tools_output).forEach(([name, output]) => {
-          addMessage("ai", `🔧 ${name}:\n${output}`);
-        });
+      // 5️⃣ If MCP used and actions returned, execute them
+      if (mcpEnabled && Array.isArray(data.actions) && data.actions.length) {
+        console.log("[MCP] executing actions:", data.actions);
+        const execResult =
+          window.electronAPI?.runActions &&
+          (await window.electronAPI.runActions(data.actions));
+        console.log("[MCP] runActions result:", execResult);
       }
     } catch (err) {
-      console.error("API error:", err);
+      console.error("❌ API error:", err);
       addMessage("ai", "❌ Failed to get response.");
     } finally {
       setLoading(false);
@@ -95,30 +135,23 @@ export const ChatProvider = ({ children }) => {
   };
 
   const newChat = () => {
-    const title = `Chat ${conversations.length + 1}`;
-    const newConversation = { title, messages: [] };
-    setConversations((prev) => [...prev, newConversation]);
+    setConversations((prev) => [...prev, { title: `Chat ${prev.length + 1}`, messages: [] }]);
     setCurrentIndex(conversations.length);
   };
 
-  const renameChat = (index, newTitle) => {
+  const renameChat = (idx, newTitle) =>
     setConversations((prev) =>
-      prev.map((c, i) => (i === index ? { ...c, title: newTitle } : c))
+      prev.map((c, i) => (i === idx ? { ...c, title: newTitle } : c))
     );
-  };
 
-  const deleteChat = (index) => {
-    const updated = conversations.filter((_, i) => i !== index);
+  const deleteChat = (idx) => {
+    const updated = conversations.filter((_, i) => i !== idx);
     setConversations(updated);
-    setCurrentIndex(
-      index === currentIndex ? 0 : currentIndex - (index < currentIndex ? 1 : 0)
-    );
+    setCurrentIndex((i) => (i === idx ? 0 : i > idx ? i - 1 : i));
   };
 
-  const switchChat = (index) => {
-    if (index >= 0 && index < conversations.length) {
-      setCurrentIndex(index);
-    }
+  const switchChat = (idx) => {
+    if (idx >= 0 && idx < conversations.length) setCurrentIndex(idx);
   };
 
   return (
@@ -127,7 +160,6 @@ export const ChatProvider = ({ children }) => {
         conversations,
         currentMessages: conversations[currentIndex]?.messages || [],
         sendMessage,
-        sendMcpMessage: sendMessage,
         newChat,
         switchChat,
         currentIndex,
@@ -136,11 +168,6 @@ export const ChatProvider = ({ children }) => {
         loading,
         mcpEnabled,
         toggleMCP,
-        modelType,
-        setModelType,
-        temperature,
-        setTemperature,
-        toolServers,
       }}
     >
       {children}
