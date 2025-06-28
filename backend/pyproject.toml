@@ -1,0 +1,7 @@
+[project]
+name = "mcp backend"
+version = "0.1.0"
+description = "MCP based Backend that powers automation for AI browser agent"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
